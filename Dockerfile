@@ -2,7 +2,7 @@ FROM ubuntu:focal
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-COPY rootfs/config /etc/skel/.config
+COPY src/config /etc/skel/.config
 
 RUN apt-get update \
   && apt-get install -y xvfb xfce4 x11vnc openjdk-11-jre sudo python wget \
@@ -37,7 +37,7 @@ RUN set -xe \
 WORKDIR $HOME
 EXPOSE $VNC_PORT $NOVNC_PORT
 
-COPY run_init /usr/bin/
+COPY src/run_init /usr/bin/
 
 VOLUME ["/app"]
 
