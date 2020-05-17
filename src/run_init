@@ -13,9 +13,8 @@ $NOVNC_HOME/utils/launch.sh --vnc localhost:$VNC_PORT --listen $NOVNC_PORT &
 Xvfb $DISPLAY -screen 0 "$VNC_RESOLUTION"x"$VNC_COL_DEPTH" &
 startxfce4 --replace > $HOME/wm.log 2>&1 &
 
-if [ ! -f /app/iptvboss.jar ]; then
-  wget -O /app/iptvboss.jar "https://www.dropbox.com/s/f8bxi4s6o95658z/IPTVBoss.jar?dl=1"
-fi
+wget -N -O /app/iptvboss.jar "https://www.dropbox.com/s/f8bxi4s6o95658z/IPTVBoss.jar?dl=1"
+  
 if [ ! -f /app/config.yaml ]; then
   echo "sceneHeight: 936.0" > /app/config.yaml
   echo "sceneWidth: 1270.0" >> /app/config.yaml
