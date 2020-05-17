@@ -17,7 +17,7 @@ if [ ! -f /app/iptvboss.jar ]; then
   wget -O /app/iptvboss.jar "https://www.dropbox.com/s/f8bxi4s6o95658z/IPTVBoss.jar?dl=1"
 fi
 if [ ! -f /app/config.yaml ]; then
-  echo "sceneHeight: 744.0" > /app/config.yaml
+  echo "sceneHeight: 946.0" > /app/config.yaml
   echo "sceneWidth: 1270.0" >> /app/config.yaml
 fi
 if [ ! -f $HOME/appinit.sh ]; then
