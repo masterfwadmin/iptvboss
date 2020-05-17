@@ -12,7 +12,7 @@ RUN apt-get update \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
   && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers 
   
-COPY src/iptvboss /var/spool/cron/crontabs/
+RUN echo "15 4 * * * cd /app && java -jar iptvboss.jar -noGui > /home/iptvboss/cron.log 2>&1"| crontab -
 
 USER iptvboss
 
