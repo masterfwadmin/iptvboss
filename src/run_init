@@ -12,6 +12,10 @@ rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1
 $NOVNC_HOME/utils/launch.sh --vnc localhost:$VNC_PORT --listen $NOVNC_PORT &
 Xvfb $DISPLAY -screen 0 "$VNC_RESOLUTION"x"$VNC_COL_DEPTH" &
 startxfce4 --replace > $HOME/wm.log 2>&1 &
+if [[ $(crontab -l | egrep -v "^(#|$)" | grep -q 'java'; echo $?) == 1 ]]
+then
+    echo $(crontab -l ; echo '15 4 * * * cd /app && java -jar iptvboss.jar -noGui') | crontab -
+fi
 if [ ! -f /app/iptvboss.jar ]; then
   wget -O /app/iptvboss.jar "https://www.dropbox.com/s/f8bxi4s6o95658z/IPTVBoss.jar?dl=1"
 fi
