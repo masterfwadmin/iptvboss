@@ -5,12 +5,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 COPY src/config /etc/skel/.config
 
 RUN apt-get update \
-  && apt-get install -y xvfb xfce4 x11vnc openjdk-11-jre sudo python wget \
+  && apt-get install -y xvfb xfce4 x11vnc openjdk-11-jre sudo python cron wget \
   && apt-get purge -y xfce4-panel xfdesktop4 \
   && addgroup iptvboss \
   && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
   && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers 
+  
+COPY src/iptvboss /var/spool/cron/crontabs/
 
 USER iptvboss
 
