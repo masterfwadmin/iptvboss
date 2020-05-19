@@ -6,13 +6,13 @@ COPY src/config /etc/skel/.config
 
 RUN apt-get update \
   && apt-get install -y xvfb xfce4 x11vnc openjdk-11-jre sudo python cron wget \
-  && apt-get purge -y xfce4-panel xfdesktop4 gnome-desktop3-data \
+  && apt-get purge -y xfce4-panel xfdesktop4 gnome-desktop3-data pulseaudio \
   && addgroup iptvboss \
   && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
   && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers 
   
-RUN echo "15 4 * * * cd /app && java -jar iptvboss.jar -noGui > /home/iptvboss/cron.log 2>&1"| crontab -
+RUN echo "15 4 * * * cd /app && killall java && java -jar iptvboss.jar -noGui > /home/iptvboss/cron.log 2>&1"| crontab -
 
 USER iptvboss
 
