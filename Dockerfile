@@ -11,8 +11,6 @@ RUN apt-get update \
   && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
   && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers 
-  
-RUN echo "15 4 * * * cd /app && killall java && java -jar iptvboss.jar -noGui > /home/iptvboss/cron.log 2>&1"| crontab -
 
 USER iptvboss
 
@@ -35,6 +33,8 @@ RUN set -xe \
   && wget -qO- https://github.com/novnc/websockify/archive/v0.9.0.tar.gz | tar xzf - --strip 1 -C $NOVNC_HOME/utils/websockify \
   && chmod +x -v $NOVNC_HOME/utils/*.sh \
   && ln -s $NOVNC_HOME/vnc.html $NOVNC_HOME/index.html
+
+RUN echo "15 4 * * * cd /app && killall java && java -jar iptvboss.jar -noGui > /home/iptvboss/cron.log 2>&1"| crontab -
 
 WORKDIR $HOME
 EXPOSE $VNC_PORT $NOVNC_PORT
