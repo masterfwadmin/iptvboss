@@ -8,5 +8,5 @@ Exec=/home/iptvboss/appinit.sh
 OnlyShowIn=XFCE;
 RunHook=0
 StartupNotify=false
-Terminal=true
+Terminal=false
 Hidden=false
