@@ -12,6 +12,8 @@ RUN apt-get update \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
   && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers 
 
+RUN cron -f &
+
 USER iptvboss
 
 ENV USER=iptvboss \
