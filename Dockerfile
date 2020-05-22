@@ -10,9 +10,7 @@ RUN apt-get update \
   && addgroup iptvboss \
   && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
-  && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers 
-
-RUN cron -f &
+  && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 USER iptvboss
 
