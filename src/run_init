@@ -21,10 +21,12 @@ if [ ! -f /app/config.yaml ]; then
 fi
 if [ ! -f $HOME/appinit.sh ]; then
   echo "#!/bin/bash" > $HOME/appinit.sh
+  echo "export DISPLAY=:1" >> $HOME/appinit.sh
   echo "killall java" >> $HOME/appinit.sh
   echo "cd /app;java -jar iptvboss.jar -noGui" >> $HOME/appinit.sh
   echo "cd /app;java -jar iptvboss.jar &" >> $HOME/appinit.sh
   chmod +x -v $HOME/appinit.sh
 fi
+sudo cron
 sleep 1
 x11vnc -xkb -noxrecord -noxfixes -noxdamage -permitfiletransfer -tightfilexfer -display $DISPLAY -forever -o $HOME/.x11vnc/x11vnc.log -bg && tail -f $HOME/.x11vnc/x11vnc.log
