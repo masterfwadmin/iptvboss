@@ -34,7 +34,7 @@ RUN cd $NOVNC_HOME/utils && git clone https://github.com/novnc/websockify.git
 RUN chmod +x -v $NOVNC_HOME/utils/*.sh
 RUN ln -s $NOVNC_HOME/vnc.html $NOVNC_HOME/index.html
 
-RUN echo "15 4 * * * /home/iptvboss/appinit.sh > /home/iptvboss/cron.log 2>&1"| crontab -
+RUN echo "15 4 * * * /home/iptvboss/appinit.sh > /home/iptvboss/cron.log 2>&1"| sudo crontab -u iptvboss -
 
 WORKDIR $HOME
 EXPOSE $VNC_PORT $NOVNC_PORT
