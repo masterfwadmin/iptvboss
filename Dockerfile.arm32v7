@@ -29,8 +29,8 @@ ENV USER=iptvboss \
 
 RUN set -xe
 RUN cd /home/iptvboss && git clone https://github.com/kanaka/noVNC.git
-RUN mkdir -p $NOVNC_HOME/utils/websockify
-RUN wget -qO- https://github.com/novnc/websockify/archive/v0.9.0.tar.gz | tar xzf - --strip 1 -C $NOVNC_HOME/utils/websockify
+RUN mkdir -p $NOVNC_HOME/utils/
+RUN cd $NOVNC_HOME/utils && git clone https://github.com/novnc/websockify.git
 RUN chmod +x -v $NOVNC_HOME/utils/*.sh
 RUN ln -s $NOVNC_HOME/vnc.html $NOVNC_HOME/index.html
 
