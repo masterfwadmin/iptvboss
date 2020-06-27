@@ -6,12 +6,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 COPY src/config /etc/skel/.config
 
-RUN apt-get update
-RUN apt-get install -y sudo python wget git cron
-RUN addgroup iptvboss
-RUN adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss
-RUN echo "iptvboss:iptvboss" | /usr/sbin/chpasswd
-RUN echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
+RUN apt-get update \
+  && apt-get install -y xvfb xfce4 x11vnc openjdk-11-jre sudo python cron wget vlc \
+  && apt-get purge -y xfce4-panel xfdesktop4 gnome-desktop3-data pulseaudio \
+  && addgroup iptvboss \
+  && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
+  && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
+  && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
 RUN echo "15 4 * * * /home/iptvboss/appinit.sh > /home/iptvboss/cron.log 2>&1"| crontab -u iptvboss -
 
 USER iptvboss
@@ -35,8 +36,6 @@ RUN mkdir -p $NOVNC_HOME/utils/
 RUN cd $NOVNC_HOME/utils && git clone https://github.com/novnc/websockify.git
 RUN chmod +x -v $NOVNC_HOME/utils/*.sh
 RUN ln -s $NOVNC_HOME/vnc.html $NOVNC_HOME/index.html
-
-
 
 WORKDIR $HOME
 EXPOSE $VNC_PORT $NOVNC_PORT
