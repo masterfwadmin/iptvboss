@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 COPY src/config /etc/skel/.config
 
 RUN apt-get update
-RUN apt-get install -y sudo python wget git
+RUN apt-get install -y sudo python wget git cron
 RUN addgroup iptvboss
 RUN adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss
 RUN echo "iptvboss:iptvboss" | /usr/sbin/chpasswd
