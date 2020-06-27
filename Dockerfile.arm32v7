@@ -7,8 +7,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 COPY src/config /etc/skel/.config
 
 RUN apt-get update
-RUN apt-get install -y xvfb xfce4 x11vnc openjdk-11-jre sudo python cron wget vlc
-RUN apt-get purge -y xfce4-panel xfdesktop4 gnome-desktop3-data pulseaudio
+RUN apt-get install -y sudo python
 RUN addgroup iptvboss
 RUN adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss
 RUN echo "iptvboss:iptvboss" | /usr/sbin/chpasswd
@@ -28,12 +27,12 @@ ENV USER=iptvboss \
     NOVNC_PORT=5800 \
     NOVNC_HOME=/home/iptvboss/noVNC 
 
-RUN set -xe \
-  && mkdir -p $NOVNC_HOME/utils/websockify \
-  && wget -qO- https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz | tar xz --strip 1 -C $NOVNC_HOME \
-  && wget -qO- https://github.com/novnc/websockify/archive/v0.9.0.tar.gz | tar xzf - --strip 1 -C $NOVNC_HOME/utils/websockify \
-  && chmod +x -v $NOVNC_HOME/utils/*.sh \
-  && ln -s $NOVNC_HOME/vnc.html $NOVNC_HOME/index.html
+RUN set -xe
+RUN mkdir -p $NOVNC_HOME/utils/websockify
+RUN wget -qO- https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz | tar xz --strip 1 -C $NOVNC_HOME
+RUN wget -qO- https://github.com/novnc/websockify/archive/v0.9.0.tar.gz | tar xzf - --strip 1 -C $NOVNC_HOME/utils/websockify
+RUN chmod +x -v $NOVNC_HOME/utils/*.sh
+RUN ln -s $NOVNC_HOME/vnc.html $NOVNC_HOME/index.html
 
 RUN echo "15 4 * * * /home/iptvboss/appinit.sh > /home/iptvboss/cron.log 2>&1"| crontab -
 
