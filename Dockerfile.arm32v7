@@ -29,7 +29,7 @@ ENV USER=iptvboss \
 
 RUN set -xe
 RUN mkdir -p $NOVNC_HOME/utils/websockify
-RUN wget -qO- https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz | tar xz --strip 1 -C $NOVNC_HOME
+RUN wget -qO- https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz | tar xzf - --strip 1 -C $NOVNC_HOME
 RUN wget -qO- https://github.com/novnc/websockify/archive/v0.9.0.tar.gz | tar xzf - --strip 1 -C $NOVNC_HOME/utils/websockify
 RUN chmod +x -v $NOVNC_HOME/utils/*.sh
 RUN ln -s $NOVNC_HOME/vnc.html $NOVNC_HOME/index.html
