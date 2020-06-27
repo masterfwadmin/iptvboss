@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 COPY src/config /etc/skel/.config
 
-RUN apt-get update 
+RUN bash apt-get update 
 RUN apt-get install -y xvfb xfce4 x11vnc openjdk-11-jre sudo python cron wget vlc
 RUN apt-get purge -y xfce4-panel xfdesktop4 gnome-desktop3-data pulseaudio
 RUN addgroup iptvboss
