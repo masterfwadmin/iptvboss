@@ -31,7 +31,7 @@ ENV USER=iptvboss \
     NOVNC_HOME=/home/iptvboss/noVNC 
 
 RUN set -xe
-RUN cd /home/iptvboss && git clone https://github.com/kanaka/noVNC.git
+RUN cd $HOME && git clone https://github.com/kanaka/noVNC.git
 RUN mkdir -p $NOVNC_HOME/utils/
 RUN cd $NOVNC_HOME/utils && git clone https://github.com/novnc/websockify.git
 RUN chmod +x -v $NOVNC_HOME/utils/*.sh
@@ -41,6 +41,8 @@ WORKDIR $HOME
 EXPOSE $VNC_PORT $NOVNC_PORT
 
 COPY src/run_init /usr/bin/
+
+COPY src/iptvboss.jar $HOME
 
 VOLUME ["/app"]
 
