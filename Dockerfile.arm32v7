@@ -13,6 +13,8 @@ RUN apt-get update \
   && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
   && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
+  
+RUN echo "Set disable_coredump false" >> /etc/sudo.conf
 RUN echo "15 4 * * * /home/iptvboss/appinit.sh > /home/iptvboss/cron.log 2>&1"| crontab -u iptvboss -
 
 USER iptvboss
