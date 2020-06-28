@@ -28,5 +28,4 @@ if [ ! -f $HOME/appinit.sh ]; then
   chmod +x -v $HOME/appinit.sh
 fi
 
-sleep 1
 x11vnc -xkb -noxrecord -noxfixes -noxdamage -permitfiletransfer -tightfilexfer -display $DISPLAY -forever -o $HOME/.x11vnc/x11vnc.log -bg && tail -f $HOME/.x11vnc/x11vnc.log
