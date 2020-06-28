@@ -12,7 +12,9 @@ rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1
 $NOVNC_HOME/utils/launch.sh --vnc localhost:$VNC_PORT --listen $NOVNC_PORT &
 Xvfb $DISPLAY -screen 0 "$VNC_RESOLUTION"x"$VNC_COL_DEPTH" &
 startxfce4 --replace > $HOME/wm.log 2>&1 &
-  
+
+cp $HOME/iptvboss.jar /app
+
 if [ ! -f /app/config.yaml ]; then
   echo "sceneHeight: 936.0" > /app/config.yaml
   echo "sceneWidth: 1270.0" >> /app/config.yaml
