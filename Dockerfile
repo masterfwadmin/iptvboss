@@ -1,3 +1,4 @@
+FROM arm32v5/debian
 
 # Install git, supervisor, VNC, & X11 packages
 RUN set -ex; \
