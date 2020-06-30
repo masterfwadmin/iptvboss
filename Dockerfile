@@ -1,4 +1,6 @@
-FROM arm32v6/alpine
+FROM arm32v6/alpine:3.10
+
+COPY qemu-arm-static /usr/bin
 
 RUN \
     # Install required packages
