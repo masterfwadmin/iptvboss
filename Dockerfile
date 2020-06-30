@@ -1,46 +1,35 @@
-FROM ubuntu:focal
+FROM arm32v6/alpine
 
-ENV DEBIAN_FRONTEND=noninteractive
+RUN \
+    # Install required packages
+    echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    apk --update --upgrade add \
+      bash \
+      fluxbox \
+      git \
+      supervisor \
+      xvfb \
+      x11vnc \
+      && \
+    # Install noVNC
+    git clone --depth 1 https://github.com/novnc/noVNC.git /root/noVNC && \
+    git clone --depth 1 https://github.com/novnc/websockify /root/noVNC/utils/websockify && \
+    rm -rf /root/noVNC/.git && \
+    rm -rf /root/noVNC/utils/websockify/.git && \
+    apk del git && \
+    sed -i -- "s/ps -p/ps -o pid | grep/g" /root/noVNC/utils/launch.sh
 
-COPY src/config /etc/skel/.config
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+EXPOSE 8080
 
-RUN apt-get update \
-  && apt-get install -y xvfb xfce4 x11vnc openjdk-11-jre sudo python cron wget vlc \
-  && apt-get purge -y xfce4-panel xfdesktop4 gnome-desktop3-data pulseaudio \
-  && addgroup iptvboss \
-  && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
-  && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
-  && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
-
-USER iptvboss
-
-ENV USER=iptvboss \
-    DISPLAY=:1 \
+# Setup environment variables
+ENV HOME=/root \
+    DEBIAN_FRONTEND=noninteractive \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
-    HOME=/home/iptvboss \
-    TERM=xterm \
-    SHELL=/bin/bash \
-    VNC_PORT=5900 \
-    VNC_RESOLUTION=1280x960 \
-    VNC_COL_DEPTH=24  \
-    NOVNC_PORT=5800 \
-    NOVNC_HOME=/home/iptvboss/noVNC 
+    LC_ALL=C.UTF-8 \
+    DISPLAY=:0.0 \
+    DISPLAY_WIDTH=1024 \
+    DISPLAY_HEIGHT=768
 
-RUN set -xe \
-  && mkdir -p $NOVNC_HOME/utils/websockify \
-  && wget -qO- https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz | tar xz --strip 1 -C $NOVNC_HOME \
-  && wget -qO- https://github.com/novnc/websockify/archive/v0.9.0.tar.gz | tar xzf - --strip 1 -C $NOVNC_HOME/utils/websockify \
-  && chmod +x -v $NOVNC_HOME/utils/*.sh \
-  && ln -s $NOVNC_HOME/vnc.html $NOVNC_HOME/index.html
-
-RUN echo "15 4 * * * /home/iptvboss/appinit.sh > /home/iptvboss/cron.log 2>&1"| crontab -
-
-WORKDIR $HOME
-EXPOSE $VNC_PORT $NOVNC_PORT
-
-COPY src/run_init /usr/bin/
-
-VOLUME ["/app"]
-
-CMD ["bash", "/usr/bin/run_init"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
