@@ -2,6 +2,8 @@ FROM arm32v5/debian
 
 COPY qemu-arm-static /usr/bin
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install git, supervisor, VNC, & X11 packages
 RUN set -ex; \
     apt-get update; \
