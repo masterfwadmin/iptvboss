@@ -7,7 +7,7 @@ RUN set -ex; \
     apt-get update; \
     apt-get install -y \
       bash \
-      fluxbox \
+      lxde \
       git \
       net-tools \
       novnc \
