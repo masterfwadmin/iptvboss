@@ -16,8 +16,7 @@ RUN set -ex; \
       supervisor \
       x11vnc \
       xterm \
-      xvfb \
-      openjdk-11-jre
+      xvfb
 
 # Setup demo environment variables
 ENV HOME=/root \
