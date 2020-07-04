@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-glibc
+FROM jlesage/baseimage:alpine-3.12-glibc-v2.4.4
 
 COPY src/config /etc/skel/.config
 
@@ -8,7 +8,10 @@ RUN set -xe \
   && adduser -G iptvboss -s /bin/bash -D iptvboss \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
   && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
-  
+
+RUN mkdir /opt/jre \
+    curl -s -L https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-linux-x64.tar.gz | tar -xz --strip 1 -C /opt/jre amazon-corretto-11.0.7.10.1-linux-x64
+
 RUN mkdir /app && chown iptvboss:iptvboss /app
 
 USER iptvboss
