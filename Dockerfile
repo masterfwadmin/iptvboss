@@ -12,7 +12,7 @@ RUN set -xe \
 RUN mkdir /app && chown iptvboss:iptvboss /app
 
 RUN mkdir /opt/jre && \
-    curl -L https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-linux-x64.tar.gz | tar -xz --strip 1 -C /opt/jre amazon-corretto-11.0.7.10.1-linux-x64 && \
+    curl -L https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-linux-x64.tar.gz | tar -xz --strip 1 -C /opt/jre amazon-corretto-11.0.7.10.1-linux-x64
   
 USER iptvboss
 
