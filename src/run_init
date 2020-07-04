@@ -4,7 +4,6 @@ set -xe
 
 source /etc/profile
 
-mkdir -p /app
 mkdir -p "$HOME/.x11vnc"
 
 rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1
