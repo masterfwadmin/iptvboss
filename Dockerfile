@@ -37,4 +37,4 @@ EXPOSE $VNC_PORT $NOVNC_PORT
 
 COPY src/run_init /usr/bin/
 
-CMD ["run_init"]
+CMD ["/usr/bin/run_init"]
