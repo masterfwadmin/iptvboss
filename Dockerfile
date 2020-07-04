@@ -3,7 +3,7 @@ FROM jlesage/baseimage:alpine-3.12-glibc-v2.4.4
 COPY src/config /etc/skel/.config
 
 RUN set -xe \
-  && apk --update --no-cache add xvfb x11vnc xfce4 xfce4-terminal openjdkpython2 bash sudo curl wget \
+  && apk --update --no-cache add xvfb x11vnc xfce4 xfce4-terminal openjdk11 python2 bash sudo curl wget \
   && addgroup iptvboss \
   && adduser -G iptvboss -s /bin/bash -D iptvboss \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
