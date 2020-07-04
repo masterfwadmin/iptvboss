@@ -10,7 +10,7 @@ RUN set -xe \
   && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 RUN mkdir /opt/jre \
-    curl -s -L https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-linux-x64.tar.gz | tar -xz --strip 1 -C /opt/jre amazon-corretto-11.0.7.10.1-linux-x64
+    && curl -s -L https://corretto.aws/downloads/resources/11.0.7.10.1/amazon-corretto-11.0.7.10.1-linux-x64.tar.gz | tar -xz --strip 1 -C /opt/jre amazon-corretto-11.0.7.10.1-linux-x64
 
 RUN mkdir /app && chown iptvboss:iptvboss /app
 
