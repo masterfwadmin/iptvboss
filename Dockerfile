@@ -35,6 +35,8 @@ RUN set -xe \
 WORKDIR $HOME
 EXPOSE $VNC_PORT $NOVNC_PORT
 
+VOLUME ["/app"]
+
 COPY src/run_init /usr/bin/
 
 CMD ["bash", "/usr/bin/run_init"]
