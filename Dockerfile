@@ -1,6 +1,6 @@
 FROM alpine:3.12
 
-COPY config /etc/skel/.config
+COPY src/config /etc/skel/.config
 
 RUN set -xe \
   && apk --update --no-cache add xvfb x11vnc xfce4 xfce4-terminal python bash sudo htop procps curl wget \
@@ -35,6 +35,6 @@ RUN set -xe \
 WORKDIR $HOME
 EXPOSE $VNC_PORT $NOVNC_PORT
 
-COPY run_init /usr/bin/
+COPY src/run_init /usr/bin/
 
 CMD ["run_init"]
