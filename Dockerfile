@@ -1,5 +1,5 @@
 FROM alpine:3.12
-
+/app
 COPY src/config /etc/skel/.config
 
 RUN set -xe \
@@ -8,6 +8,8 @@ RUN set -xe \
   && adduser -G iptvboss -s /bin/bash -D iptvboss \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
   && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
+  
+RUN mkdir /app && chown iptvboss:iptvboss /app
 
 USER iptvboss
 
