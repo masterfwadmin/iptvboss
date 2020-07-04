@@ -21,9 +21,9 @@ fi
 if [ ! -f $HOME/appinit.sh ]; then
   echo "#!/bin/bash" > $HOME/appinit.sh
   echo "export DISPLAY=:1" >> $HOME/appinit.sh
-  echo "killall java" >> $HOME/appinit.sh
-  echo "cd /app;java -jar iptvboss.jar -noGui" >> $HOME/appinit.sh
-  echo "cd /app;java -jar iptvboss.jar &" >> $HOME/appinit.sh
+  #echo "killall java" >> $HOME/appinit.sh
+  #echo "cd /app;java -jar iptvboss.jar -noGui" >> $HOME/appinit.sh
+  #echo "cd /app;java -jar iptvboss.jar &" >> $HOME/appinit.sh
   chmod +x -v $HOME/appinit.sh
 fi
 sudo cron
