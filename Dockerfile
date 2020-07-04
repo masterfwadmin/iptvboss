@@ -1,5 +1,5 @@
 FROM alpine:3.12
-/app
+
 COPY src/config /etc/skel/.config
 
 RUN set -xe \
