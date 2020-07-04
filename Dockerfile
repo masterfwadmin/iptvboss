@@ -1,14 +1,11 @@
-FROM ubuntu:focal
+FROM alpine:3.12
 
-ENV DEBIAN_FRONTEND=noninteractive
+COPY config /etc/skel/.config
 
-COPY src/config /etc/skel/.config
-
-RUN apt-get update \
-  && apt-get install -y xvfb xfce4 x11vnc openjdk-11-jre sudo python cron wget vlc \
-  && apt-get purge -y xfce4-panel xfdesktop4 gnome-desktop3-data pulseaudio \
+RUN set -xe \
+  && apk --update --no-cache add xvfb x11vnc xfce4 xfce4-terminal python bash sudo htop procps curl wget \
   && addgroup iptvboss \
-  && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
+  && adduser -G iptvboss -s /bin/bash -D iptvboss \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
   && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
 
@@ -24,8 +21,8 @@ ENV USER=iptvboss \
     VNC_PORT=5900 \
     VNC_RESOLUTION=1280x960 \
     VNC_COL_DEPTH=24  \
-    NOVNC_PORT=5800 \
-    NOVNC_HOME=/home/iptvboss/noVNC 
+    NOVNC_PORT=6080 \
+    NOVNC_HOME=/home/iptvboss/noVNC
 
 RUN set -xe \
   && mkdir -p $NOVNC_HOME/utils/websockify \
@@ -34,13 +31,10 @@ RUN set -xe \
   && chmod +x -v $NOVNC_HOME/utils/*.sh \
   && ln -s $NOVNC_HOME/vnc.html $NOVNC_HOME/index.html
 
-RUN echo "15 4 * * * /home/iptvboss/appinit.sh > /home/iptvboss/cron.log 2>&1"| crontab -
 
 WORKDIR $HOME
 EXPOSE $VNC_PORT $NOVNC_PORT
 
-COPY src/run_init /usr/bin/
+COPY run_init /usr/bin/
 
-VOLUME ["/app"]
-
-CMD ["bash", "/usr/bin/run_init"]
+CMD ["run_init"]
