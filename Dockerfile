@@ -3,7 +3,7 @@ FROM alpine:3.12
 COPY src/config /etc/skel/.config
 
 RUN set -xe \
-  && apk --update --no-cache add xvfb x11vnc xfce4 xfce4-terminal python2 bash sudo htop procps curl wget \
+  && apk --update --no-cache add xvfb x11vnc xfce4 xfce4-terminal python2 bash sudo cron htop procps curl wget \
   && addgroup iptvboss \
   && adduser -G iptvboss -s /bin/bash -D iptvboss \
   && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
