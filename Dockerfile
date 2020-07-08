@@ -9,6 +9,7 @@ RUN set -ex; \
     apt-get update; \
     apt-get install -y \
       bash \
+      python \
       lxde \
       git \
       net-tools \
