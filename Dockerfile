@@ -1,4 +1,4 @@
-FROM arm32v5/debian
+FROM arm32v7/ubuntu:focal
 
 COPY qemu-arm-static /usr/bin
 
