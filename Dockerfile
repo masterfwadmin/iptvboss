@@ -24,9 +24,9 @@ ENV HOME=/root \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     LC_ALL=C.UTF-8 \
-    DISPLAY=:0.0 \
-    DISPLAY_WIDTH=1024 \
-    DISPLAY_HEIGHT=768 \
+    DISPLAY=:0 \
+    DISPLAY_WIDTH=1600 \
+    DISPLAY_HEIGHT=1200 \
     RUN_XTERM=yes \
     RUN_FLUXBOX=yes
 
