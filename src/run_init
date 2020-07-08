@@ -5,7 +5,6 @@ set -xe
 source /etc/profile
 
 mkdir -p "$HOME/.x11vnc"
-PASSWD_PATH="$HOME/.x11vnc/passwd"
 
 rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1
 
@@ -21,7 +20,7 @@ if [ ! -f /app/config.yaml ]; then
 fi
 if [ ! -f $HOME/appinit.sh ]; then
   echo "#!/bin/bash" > $HOME/appinit.sh
-  echo "export DISPLAY=:1" >> $HOME/appinit.sh
+  echo "export DISPLAY=:0" >> $HOME/appinit.sh
   echo "killall java" >> $HOME/appinit.sh
   echo "cd /app;java -jar iptvboss.jar -noGui" >> $HOME/appinit.sh
   echo "cd /app;java -jar iptvboss.jar &" >> $HOME/appinit.sh
