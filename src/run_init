@@ -15,9 +15,9 @@ startxfce4 --replace > $HOME/wm.log 2>&1 &
 
 wget -N -O /app/iptvboss.jar "https://www.dropbox.com/s/wn860p0bovbgf71/IPTVBoss.jar?dl=1"
   
-if [ ! -f /app/config.yaml ]; then
-  echo "sceneHeight: 936.0" > /app/config.yaml
-  echo "sceneWidth: 1270.0" >> /app/config.yaml
+if [ ! -f /app/settings.yaml ]; then
+  echo "sceneHeight: 936.0" > /app/settings.yaml
+  echo "sceneWidth: 1270.0" >> /app/settings.yaml
 fi
 if [ ! -f $HOME/appinit.sh ]; then
   echo "#!/bin/bash" > $HOME/appinit.sh
