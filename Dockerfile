@@ -5,8 +5,7 @@ COPY qemu-arm-static /usr/bin
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install git, supervisor, VNC, & X11 packages
-RUN set -ex; \
-    apt update; \
+RUN apt update; \
     apt install -y \
       bash \
       python \
