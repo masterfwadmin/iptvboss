@@ -1,12 +1,13 @@
-FROM arm64v8/ubuntu:18.04
+FROM arm64v8/ubuntu:20.04
 
-COPY qemu-arm-static /usr/bin
+COPY qemu-aarch64-static /usr/bin
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install git, supervisor, VNC, & X11 packages
-RUN apt update; \
-    apt install -y \
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y \
       bash \
       python \
       lxde \
