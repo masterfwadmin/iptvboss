@@ -1,2 +1,6 @@
 #!/bin/bash
-curl -L https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz | tar zxvf - -C . && mv qemu-3.0.0+resin-arm/qemu-arm-static .
+#curl -L https://github.com/balena-io/qemu/releases/download/v3.0.0%2Bresin/qemu-3.0.0+resin-arm.tar.gz | tar zxvf - -C . && mv qemu-3.0.0+resin-arm/qemu-arm-static .
+git clone https://github.com/computermouth/qemu-static-conf.git
+sudo mkdir -p /lib/binfmt.d
+sudo cp qemu-static-conf/*.conf /lib/binfmt.d
+sudo systemctl restart systemd-binfmt.service
