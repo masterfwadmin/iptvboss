@@ -1,4 +1,4 @@
-FROM arm64v8/ubuntu:focal
+FROM arm64v8/ubuntu:18.04
 
 COPY qemu-arm-static /usr/bin
 
