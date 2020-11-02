@@ -10,7 +10,6 @@ RUN set -xe; \
     apt-get install -y \
       bash \
       python \
-      lxde \
       wget \
       sudo \
       git \
@@ -19,6 +18,10 @@ RUN set -xe; \
       x11vnc \
       xterm \
       xvfb
+
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y lxde
 
 RUN addgroup iptvboss \
     && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
@@ -34,6 +37,8 @@ ENV USER=iptvboss \
     HOME=/home/iptvboss \
     TERM=xterm \
     SHELL=/bin/bash \
+    LD_LIBRARY_PATH=/opt/jdk-15.0.1/lib \
+    PATH_TO_FX=/opt/jdk-15.0.1/lib \
     VNC_PORT=5900 \
     VNC_RESOLUTION=1280x960 \
     VNC_COL_DEPTH=24  \
@@ -41,7 +46,7 @@ ENV USER=iptvboss \
     NOVNC_HOME=/home/iptvboss/noVNC 
 
 RUN git clone https://github.com/novnc/noVNC.git $NOVNC_HOME \
-	&& git clone https://github.com/novnc/websockify $NOVNC_HOME/utils/websockify
+ && git clone https://github.com/novnc/websockify $NOVNC_HOME/utils/websockify
 
 EXPOSE 5800
 
