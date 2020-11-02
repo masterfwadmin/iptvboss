@@ -31,7 +31,7 @@ RUN addgroup iptvboss \
 USER iptvboss
 
 ENV USER=iptvboss \
-    DISPLAY=:1 \
+    DISPLAY=:0 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     HOME=/home/iptvboss \
