@@ -1,12 +1,12 @@
 #!/bin/bash
 
-export PATH_TO_FX=/opt/jdk-15.0.1/lib
-export LD_LIBRARY_PATH=/opt/jdk-15.0.1/lib
+export PATH_TO_FX=/opt/jdk-15.0.1-full/lib
+export LD_LIBRARY_PATH=/opt/jdk-15.0.1-full/lib
 
 wget -qO /app/iptvboss.jar "https://www.dropbox.com/s/h38m3w0cjdj39en/IPTVBoss.jar?dl=1"
 
 if [ ! -d /opt/jdk-15.0.1 ]; then
-  wget -qO- "https://download.bell-sw.com/java/15.0.1+9/bellsoft-jdk15.0.1+9-linux-aarch64-full.tar.gz" | tar xz -C /opt
+  sudo wget -qO- "https://download.bell-sw.com/java/15.0.1+9/bellsoft-jdk15.0.1+9-linux-aarch64-full.tar.gz" | sudo tar xz -C /opt
 fi
 if [ ! -f /app/config.yaml ]; then
   echo "sceneHeight: 936.0" > /app/config.yaml
@@ -16,7 +16,7 @@ if [ ! -f $HOME/appinit.sh ]; then
   echo "#!/bin/bash" > $HOME/appinit.sh
   echo "export DISPLAY=:0" >> $HOME/appinit.sh
   echo "killall java" >> $HOME/appinit.sh
-  echo "cd /app;/opt/jdk-15.0.1/bin/java --module-path /opt/jdk-15.0.1/jmods -jar iptvboss.jar -noGui" >> $HOME/appinit.sh
-  echo "cd /app;/opt/jdk-15.0.1/bin/java --module-path /opt/jdk-15.0.1/jmods -jar iptvboss.jar &" >> $HOME/appinit.sh
+  echo "cd /app;/opt/jdk-15.0.1-full/bin/java --module-path /opt/jdk-15.0.1-full/jmods -jar iptvboss.jar -noGui" >> $HOME/appinit.sh
+  echo "cd /app;/opt/jdk-15.0.1/bin-full/java --module-path /opt/jdk-15.0.1-full/jmods -jar iptvboss.jar &" >> $HOME/appinit.sh
   chmod +x -v $HOME/appinit.sh
 fi
