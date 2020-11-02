@@ -43,6 +43,10 @@ RUN git clone https://github.com/novnc/noVNC.git $NOVNC_HOME \
 
 EXPOSE 58000
 
+COPY src/run_init /usr/bin/
+
+VOLUME ["/app"]
+
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
