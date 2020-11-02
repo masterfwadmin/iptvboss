@@ -1,18 +1,9 @@
 #!/bin/bash
 
-set -xe
+export PATH_TO_FX=/opt/jdk-15.0.1/lib
+export LD_LIBRARY_PATH=/opt/jdk-15.0.1/lib
 
-source /etc/profile
-
-mkdir -p "$HOME/.x11vnc"
-
-rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1
-
-$NOVNC_HOME/utils/launch.sh --vnc localhost:$VNC_PORT --listen $NOVNC_PORT &
-Xvfb $DISPLAY -screen 0 "$VNC_RESOLUTION"x"$VNC_COL_DEPTH" &
-startxfce4 --replace > $HOME/wm.log 2>&1 &
-
-wget -N -O /app/iptvboss.jar "https://www.dropbox.com/s/4q0u03rhb0mr1uz/IPTVBoss.jar?dl=1"
+wget -N -O /app/iptvboss.jar "https://www.dropbox.com/s/h38m3w0cjdj39en/IPTVBoss.jar?dl=1"
   
 if [ ! -f /app/config.yaml ]; then
   echo "sceneHeight: 936.0" > /app/config.yaml
@@ -22,10 +13,7 @@ if [ ! -f $HOME/appinit.sh ]; then
   echo "#!/bin/bash" > $HOME/appinit.sh
   echo "export DISPLAY=:0" >> $HOME/appinit.sh
   echo "killall java" >> $HOME/appinit.sh
-  echo "cd /app;java -jar iptvboss.jar -noGui" >> $HOME/appinit.sh
-  echo "cd /app;java -jar iptvboss.jar &" >> $HOME/appinit.sh
+  echo "cd /app;/opt/jdk-15.0.1/bin/java --module-path /opt/jdk-15.0.1/jmods -jar iptvboss.jar -noGui" >> $HOME/appinit.sh
+  echo "cd /app;/opt/jdk-15.0.1/bin/java --module-path /opt/jdk-15.0.1/jmods -jar iptvboss.jar &" >> $HOME/appinit.sh
   chmod +x -v $HOME/appinit.sh
 fi
-sudo cron
-sleep 1
-x11vnc -xkb -noxrecord -noxfixes -noxdamage -permitfiletransfer -tightfilexfer -display $DISPLAY -forever -o $HOME/.x11vnc/x11vnc.log -bg && tail -f $HOME/.x11vnc/x11vnc.log
