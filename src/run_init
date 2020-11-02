@@ -3,8 +3,11 @@
 export PATH_TO_FX=/opt/jdk-15.0.1/lib
 export LD_LIBRARY_PATH=/opt/jdk-15.0.1/lib
 
-wget -N -O /app/iptvboss.jar "https://www.dropbox.com/s/h38m3w0cjdj39en/IPTVBoss.jar?dl=1"
-  
+wget -qO /app/iptvboss.jar "https://www.dropbox.com/s/h38m3w0cjdj39en/IPTVBoss.jar?dl=1"
+
+if [ ! -d /opt/jdk-15.0.1 ]; then
+  wget -qO- "https://download.bell-sw.com/java/15.0.1+9/bellsoft-jdk15.0.1+9-linux-aarch64-full.tar.gz" | tar xz -C /opt
+fi
 if [ ! -f /app/config.yaml ]; then
   echo "sceneHeight: 936.0" > /app/config.yaml
   echo "sceneWidth: 1270.0" >> /app/config.yaml
