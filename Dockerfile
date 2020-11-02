@@ -11,6 +11,7 @@ RUN set -xe; \
       bash \
       python \
       lxde \
+      wget \
       git \
       net-tools \
       supervisor \
@@ -41,7 +42,7 @@ ENV USER=iptvboss \
 RUN git clone https://github.com/novnc/noVNC.git $NOVNC_HOME \
 	&& git clone https://github.com/novnc/websockify $NOVNC_HOME/utils/websockify
 
-EXPOSE 58000
+EXPOSE 5800
 
 COPY src/run_init /usr/bin/
 
