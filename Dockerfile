@@ -21,7 +21,7 @@ RUN set -xe; \
 
 RUN set -xe; \
     apt-get update; \
-    apt-get install -y lxde
+    apt-get install -y openbox
 
 RUN addgroup iptvboss \
     && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
