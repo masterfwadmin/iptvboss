@@ -18,22 +18,30 @@ RUN set -xe; \
       xterm \
       xvfb
 
-RUN git clone https://github.com/novnc/noVNC.git /root/noVNC \
-	&& git clone https://github.com/novnc/websockify /root/noVNC/utils/websockify
+RUN addgroup iptvboss \
+    && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
+    && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
+    && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
 
-# Setup demo environment variables
-ENV HOME=/root \
-    DEBIAN_FRONTEND=noninteractive \
+USER iptvboss
+
+ENV USER=iptvboss \
+    DISPLAY=:1 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
-    LC_ALL=C.UTF-8 \
-    DISPLAY=:0 \
-    DISPLAY_WIDTH=1600 \
-    DISPLAY_HEIGHT=1200 \
-    RUN_XTERM=yes \
-    RUN_FLUXBOX=yes
+    HOME=/home/iptvboss \
+    TERM=xterm \
+    SHELL=/bin/bash \
+    VNC_PORT=5900 \
+    VNC_RESOLUTION=1280x960 \
+    VNC_COL_DEPTH=24  \
+    NOVNC_PORT=5800 \
+    NOVNC_HOME=/home/iptvboss/noVNC 
 
-EXPOSE 8080
+RUN git clone https://github.com/novnc/noVNC.git $NOVNC_HOME \
+	&& git clone https://github.com/novnc/websockify $NOVNC_HOME/utils/websockify
+
+EXPOSE 58000
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
