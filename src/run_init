@@ -1,8 +1,5 @@
 #!/bin/bash
 
-export PATH_TO_FX=/opt/jdk-15.0.1-full/lib
-export LD_LIBRARY_PATH=/opt/jdk-15.0.1-full/lib
-
 wget -qO /app/iptvboss.jar "https://www.dropbox.com/s/h38m3w0cjdj39en/IPTVBoss.jar?dl=1"
 
 if [ ! -d /opt/jdk-15.0.1 ]; then
