@@ -12,6 +12,7 @@ RUN set -xe; \
       python \
       lxde \
       wget \
+      sudo \
       git \
       net-tools \
       supervisor \
