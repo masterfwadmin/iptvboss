@@ -2,25 +2,43 @@ FROM ubuntu:focal
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-COPY src/config /etc/skel/.config
+# Install git, supervisor, VNC, & X11 packages
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y \
+      bash \
+      python \
+      wget \
+      sudo \
+      cron \
+      git \
+      net-tools \
+      x11vnc \
+      xterm \
+      xvfb
 
-RUN apt-get update \
-  && apt-get install -y xvfb xfce4 x11vnc openjdk-11-jre sudo python cron wget vlc \
-  && apt-get purge -y xfce4-panel xfdesktop4 gnome-desktop3-data pulseaudio \
-  && addgroup iptvboss \
-  && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
-  && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
-  && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y openbox
+
+RUN addgroup iptvboss \
+    && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
+    && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
+    && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 USER iptvboss
 
 ENV USER=iptvboss \
-    DISPLAY=:1 \
+    DISPLAY=:0 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     HOME=/home/iptvboss \
     TERM=xterm \
     SHELL=/bin/bash \
+    LD_LIBRARY_PATH=/opt/jdk-15.0.1-full/lib \
+    PATH_TO_FX=/opt/jdk-15.0.1-full/lib \
+    DISPLAY_WIDTH=1280 \
+    DISPLAY_HEIGHT=960 \
     VNC_PORT=5900 \
     VNC_RESOLUTION=1280x960 \
     VNC_COL_DEPTH=24  \
@@ -36,11 +54,9 @@ RUN set -xe \
 
 RUN echo "15 4 * * * /home/iptvboss/appinit.sh > /home/iptvboss/cron.log 2>&1"| crontab -
 
-WORKDIR $HOME
-EXPOSE $VNC_PORT $NOVNC_PORT
+EXPOSE 5800
+VOLUME ["/app"]
 
 COPY src/run_init /usr/bin/
-
-VOLUME ["/app"]
 
 CMD ["bash", "/usr/bin/run_init"]
