@@ -17,3 +17,5 @@ if [ ! -f $HOME/appinit.sh ]; then
   echo "cd /app;/opt/jdk-15.0.1/bin-full/java --module-path /opt/jdk-15.0.1-full/jmods -jar iptvboss.jar &" >> $HOME/appinit.sh
   chmod +x -v $HOME/appinit.sh
 fi
+
+x11vnc -xkb -noxrecord -noxfixes -noxdamage -permitfiletransfer -tightfilexfer -display $DISPLAY -forever -o $HOME/.x11vnc/x11vnc.log -bg && tail -f $HOME/.x11vnc/x11vnc.log
