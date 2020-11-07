@@ -14,7 +14,6 @@ RUN set -xe; \
       sudo \
       git \
       net-tools \
-      supervisor \
       x11vnc \
       xterm \
       xvfb
@@ -55,11 +54,8 @@ RUN set -xe \
   && ln -s $NOVNC_HOME/vnc.html $NOVNC_HOME/index.html
 
 EXPOSE 5800
-
-COPY src/run_init /usr/bin/
-
 VOLUME ["/app"]
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY src/run_init /usr/bin/
 
 CMD ["bash", "/usr/bin/run_init"]
