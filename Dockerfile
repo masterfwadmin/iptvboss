@@ -12,6 +12,7 @@ RUN set -xe; \
       python \
       wget \
       sudo \
+      cron \
       git \
       net-tools \
       x11vnc \
@@ -26,6 +27,8 @@ RUN addgroup iptvboss \
     && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
     && echo "iptvboss:iptvboss" | /usr/sbin/chpasswd \
     && echo "iptvboss ALL=NOPASSWD: ALL" >> /etc/sudoers
+    
+RUN echo "15 4 * * * /home/iptvboss/appinit.sh > /home/iptvboss/cron.log 2>&1"| crontab -
 
 USER iptvboss
 
