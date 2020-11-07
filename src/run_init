@@ -7,7 +7,7 @@ source /etc/profile
 mkdir -p "$HOME/.x11vnc"
 PASSWD_PATH="$HOME/.x11vnc/passwd"
 
-rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1
+rm -rf /tmp/.X*
 
 $NOVNC_HOME/utils/launch.sh --vnc localhost:$VNC_PORT --listen $NOVNC_PORT &
 Xvfb $DISPLAY -screen 0 "$VNC_RESOLUTION"x"$VNC_COL_DEPTH" &
