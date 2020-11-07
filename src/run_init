@@ -14,7 +14,7 @@ if [ ! -f $HOME/appinit.sh ]; then
   echo "export DISPLAY=:0" >> $HOME/appinit.sh
   echo "killall java" >> $HOME/appinit.sh
   echo "cd /app;/opt/jdk-15.0.1-full/bin/java --module-path /opt/jdk-15.0.1-full/jmods -jar iptvboss.jar -noGui" >> $HOME/appinit.sh
-  echo "cd /app;/opt/jdk-15.0.1/bin-full/java --module-path /opt/jdk-15.0.1-full/jmods -jar iptvboss.jar &" >> $HOME/appinit.sh
+  echo "cd /app;/opt/jdk-15.0.1-full/bin/java --module-path /opt/jdk-15.0.1-full/jmods -jar iptvboss.jar &" >> $HOME/appinit.sh
   chmod +x -v $HOME/appinit.sh
 fi
 
