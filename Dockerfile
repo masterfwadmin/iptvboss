@@ -21,6 +21,10 @@ RUN set -xe; \
 RUN set -xe; \
     apt-get update; \
     apt-get install -y openbox
+    
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y vlc
 
 RUN addgroup iptvboss \
     && adduser --home /home/iptvboss --gid 1000 --shell /bin/bash iptvboss \
