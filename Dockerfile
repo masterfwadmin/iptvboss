@@ -58,6 +58,7 @@ RUN echo "15 4 * * * /home/iptvboss/appinit.sh > /home/iptvboss/cron.log 2>&1"| 
 EXPOSE 5800
 VOLUME ["/app"]
 
+COPY src/ui.js $NOVNC_HOME/app/
 COPY src/run_init /usr/bin/
 
 CMD ["bash", "/usr/bin/run_init"]
