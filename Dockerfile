@@ -2,7 +2,6 @@ FROM ubuntu:focal
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install git, supervisor, VNC, & X11 packages
 RUN set -xe; \
     apt-get update; \
     apt-get install -y \
